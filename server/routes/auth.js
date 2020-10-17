@@ -3,6 +3,8 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const bcrypt = require("bcryptjs");
+const jsontoken = require("jsonwebtoken");
+const { JSONTOKEN_SECRET } = require("../keys");
 
 //Get request
 router.get("/", (req, res) => {
@@ -24,13 +26,14 @@ router.post("/signup", (req, res) => {
           .status(422)
           .json({ error: "User already exists with that email" });
       }
-      //Save new user to the database
+      //hash the password on the database
       bcrypt.hash(password, 16).then((encryptedpassword) => {
         const user = new User({
           email: email,
           password: encryptedpassword,
           name: name,
         });
+        //Save new user to the database
         user
           .save()
           .then((user) => {
@@ -44,6 +47,40 @@ router.post("/signup", (req, res) => {
     .catch((error) => {
       console.log(error);
     });
+});
+
+//Sign in route
+router.post("/signin", (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res
+      .status(422)
+      .json({ error: "Please enter both email and password" });
+  }
+  //Check if the email is found in the database
+  User.findOne({ email: email }).then((savedUser) => {
+    if (!savedUser) {
+      return res.status(422).json({ error: "Username or password incorrect" });
+    }
+    //Compares if the passwords hashes to the same password in database
+    bcrypt
+      .compare(password, savedUser.password)
+      .then((passwordMatched) => {
+        if (passwordMatched) {
+          //res.status(422).json({ message: "User has " });
+          const token = jsontoken.sign(
+            { _id: savedUser._id },
+            JSONTOKEN_SECRET
+          );
+          res.json({ token: token });
+        } else {
+          res.status(422).json({ error: "Username or password incorrect" });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 });
 
 module.exports = router;
