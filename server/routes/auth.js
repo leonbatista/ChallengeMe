@@ -7,15 +7,6 @@ const jsontoken = require("jsonwebtoken");
 const { JSONTOKEN_SECRET } = require("../keys");
 const requireLogin = require("../middleware/requireLogin");
 
-//Get request home page
-router.get("/", (req, res) => {
-  res.send("New Text");
-});
-
-router.get("/protected", requireLogin, (req, res) => {
-  res.send("You have access to this content");
-});
-
 //Post request
 router.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
