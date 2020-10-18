@@ -4,6 +4,30 @@ const mongoose = require("mongoose");
 const requireLogin = require("../middleware/requireLogin");
 const Post = mongoose.model("Post");
 
+//Get all of the post created
+router.get("/allposts", (req, res) => {
+  Post.find()
+    //Extend postedBy to show name and id
+    .populate("postedBy", "_id name")
+    .then((posts) => {
+      res.json({ posts });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+router.get("/mypost", requireLogin, (req, res) => {
+  Post.find({ postedBy: req.user._id })
+    .populate("postedBy", "_id name")
+    .then((mypost) => {
+      res.json({ mypost });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 //Route to create a new post
 router.post("/createpost", requireLogin, (req, res) => {
   const { title, body, video } = req.body;
