@@ -5,10 +5,15 @@ const User = mongoose.model("User");
 const bcrypt = require("bcryptjs");
 const jsontoken = require("jsonwebtoken");
 const { JSONTOKEN_SECRET } = require("../keys");
+const requireLogin = require("../middleware/requireLogin");
 
-//Get request
+//Get request home page
 router.get("/", (req, res) => {
   res.send("New Text");
+});
+
+router.get("/protected", requireLogin, (req, res) => {
+  res.send("You have access to this content");
 });
 
 //Post request
@@ -67,7 +72,6 @@ router.post("/signin", (req, res) => {
       .compare(password, savedUser.password)
       .then((passwordMatched) => {
         if (passwordMatched) {
-          //res.status(422).json({ message: "User has " });
           const token = jsontoken.sign(
             { _id: savedUser._id },
             JSONTOKEN_SECRET
