@@ -1,17 +1,18 @@
 import React from "react";
 //Link allows for switching from one route to the other without rendering page
+//replaces <a> tags-
 import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
     <div>
       <nav>
-        <div class="nav-wrapper ">
+        <div className="nav-wrapper ">
           {/* instead of "href" we need to use "to" when using link */}
-          <Link to="/" class="brand-logo left">
+          <Link to="/" className="brand-logo left">
             ChallengeMe
           </Link>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
               <Link to="/login">Login</Link>
             </li>

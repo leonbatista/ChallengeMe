@@ -1,4 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Chewy&display=swap");
 /* we can use !important to make sure nothing overwirtes the css we create */
 .nav-wrapper {
   background-color: #43d58c;
+}
+
+.card {
+  padding: 20px;
+  text-align: center;
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+.card h2 {
+  height: auto;
+  width: 100%;
+  white-space: normal;
+  font-family: "Chewy", cursive;
+  color: #323232;
+}
+
+.waves-effect {
+  background-color: #43d58c;
+}
+
+.input-field input[type="text"]:focus {
+  border-bottom: 1px solid #43d58c !important;
+  box-shadow: 0 1px 0 0 #43d58c !important;
 }
