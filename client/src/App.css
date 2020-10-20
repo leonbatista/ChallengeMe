@@ -29,6 +29,11 @@
   box-shadow: 0 1px 0 0 #43d58c !important;
 }
 
+.input-field input[type="password"]:focus {
+  border-bottom: 1px solid #43d58c !important;
+  box-shadow: 0 1px 0 0 #43d58c !important;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;

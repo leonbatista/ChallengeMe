@@ -11,7 +11,7 @@ const requireLogin = require("../middleware/requireLogin");
 router.post("/signup", (req, res) => {
   const { name, email, password } = req.body;
   if (!email || !password || !name) {
-    return res.status(422).json({ error: "please add all the fields" });
+    return res.status(422).json({ error: "Please add all the fields." });
   }
   //Look for email in database
   User.findOne({ email: email })
@@ -20,7 +20,7 @@ router.post("/signup", (req, res) => {
       if (savedUser) {
         return res
           .status(422)
-          .json({ error: "User already exists with that email" });
+          .json({ error: "User already exists with that email." });
       }
       //hash the password on the database
       bcrypt.hash(password, 16).then((encryptedpassword) => {
@@ -51,12 +51,14 @@ router.post("/signin", (req, res) => {
   if (!email || !password) {
     return res
       .status(422)
-      .json({ error: "Please enter both email and password" });
+      .json({ error: "Please enter both email and password." });
   }
   //Check if the email is found in the database
   User.findOne({ email: email }).then((savedUser) => {
     if (!savedUser) {
-      return res.status(422).json({ error: "Username or password incorrect" });
+      return res
+        .status(422)
+        .json({ error: "Username and password are invalid." });
     }
     //Compares if the passwords hashes to the same password in database
     bcrypt
@@ -69,7 +71,7 @@ router.post("/signin", (req, res) => {
           );
           res.json({ token: token });
         } else {
-          res.status(422).json({ error: "Username or password incorrect" });
+          res.status(422).json({ error: "Username and password are invalid." });
         }
       })
       .catch((err) => {

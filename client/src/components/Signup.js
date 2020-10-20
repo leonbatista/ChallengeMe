@@ -50,7 +50,7 @@ function Signup() {
           }}
         />
         <input
-          type="text"
+          type="password"
           placeholder="Password"
           value={password}
           onChange={(event) => {
@@ -68,7 +68,11 @@ function Signup() {
         {(() => {
           switch (signUpError.display) {
             case true:
-              return <h1>{signUpError.error}</h1>;
+              return (
+                <p style={{ paddingTop: "18px", color: "red" }}>
+                  {signUpError.error}
+                </p>
+              );
             case false:
               return <h1>You haved successfuly signed up</h1>;
             default:
@@ -78,7 +82,7 @@ function Signup() {
       </div>
       <div className="card input-field">
         <h1 style={{ fontSize: "1.2rem", margin: "0" }}>
-          Already have an account? <Link to="/login">Log In </Link>{" "}
+          Already have an account? <Link to="/login">Log In </Link>
         </h1>
       </div>
     </div>
