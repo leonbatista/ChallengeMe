@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Upload from "./components/Upload";
 
 function App() {
   return (
@@ -21,8 +22,11 @@ function App() {
       <Route path="/signup">
         <Signup />
       </Route>
-      <Route path="/Login">
+      <Route path="/login">
         <Login />
+      </Route>
+      <Route path="/upload">
+        <Upload />
       </Route>
     </BrowserRouter>
   );

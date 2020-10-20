@@ -22,6 +22,9 @@ function Navbar() {
             <li>
               <Link to="/profile">Profile</Link>
             </li>
+            <li>
+              <Link to="/upload">Upload</Link>
+            </li>
           </ul>
         </div>
       </nav>

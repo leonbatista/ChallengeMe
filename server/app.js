@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const { MONGOURI } = require("./keys");
-const PORT = 3000;
+const PORT = 4000;
 
 //Connect to database
 mongoose.connect(MONGOURI, {
