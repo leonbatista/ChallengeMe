@@ -74,17 +74,16 @@ function Upload() {
             <input type="text" placeholder="Body" value={body} onChange={(event)=>{setBody(event.target.value)}} />
 
         <div className="file-field input-field">
-
-                <div style={{backgroundColor:"#43d58c"}} className="btn">
+            <div style={{backgroundColor:"#43d58c"}} className="btn">
                     <span>Search</span>
                     <input type="file" onChange={changeFile}/>
                 </div>
             <div className="file-path-wrapper">
-                <input className="file-path validate" type="text" value={video.name}  />
+                <input className="file-path validate" type="text" />
              </div>
          </div>
                 {previousSource && (<video src={previousSource} alt="" style={{height:"250px",width:"100%"}}/>)}
-                 <button className="waves-effect waves-light btn"  style={{ marginTop: "10px" }} onClick={postCloud}>Upload</button>
+                 {previousSource && <button className="waves-effect waves-light btn"  style={{ marginTop: "10px" }} onClick={postCloud}>Upload</button>}
         </div>
     )
 }
