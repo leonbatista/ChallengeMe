@@ -1,14 +1,18 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
 
 function Upload() {
     const [title, setTitle] = useState("")
     const [body, setBody] = useState("")
     const [video, setVideo] = useState("")
     const [previousSource, setPreviousSource] = useState("")
+    const [url, setURL] = useState("")
+    const history = useHistory()
 
     const changeFile = (event) => {
       setVideo(event.target.files[0])
-      previewFile(event.target.files[0])
+      const file = event.target.files[0]
+      previewFile(file)
     }
 
     const previewFile = (file) => {
@@ -19,28 +23,49 @@ function Upload() {
       }
     }
 
-    const uploadPost = () => {
-        fetch("/createpost", {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            title: title,
-            body: body,
-            video: video,
-          }),
+    const postCloud = () => {
+        const data = new FormData()
+        data.append("file",video)
+        data.append("upload_preset","challengeMe")
+        data.append("cloud_name","leonxbatista")
+        fetch("	https://api.cloudinary.com/v1_1/leonxbatista/video/upload",{
+          method:"post",
+          body:data
         })
-          .then((res) => res.json())
-          .then((data) => {
-              console.log(data);
-            if (data.error) {
-              
-            } else {
-              
-            }
-          });
-      };
+        .then(res=>res.json())
+        .then(data=>{
+          setURL(data.url)
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+
+    useEffect(()=>{ 
+      if(url){
+      fetch("/createpost", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
+      },
+      body: JSON.stringify({
+        title: title,
+        body: body,
+        video: url,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          
+        } else {
+          console.log("Posted Successful");
+          history.push("/")
+        }
+      })
+    }
+    },[url,body,history,title])
 
 
     return (
@@ -59,7 +84,7 @@ function Upload() {
              </div>
          </div>
                 {previousSource && (<video src={previousSource} alt="" style={{height:"250px",width:"100%"}}/>)}
-                 <button className="waves-effect waves-light btn"  style={{ marginTop: "10px" }} onClick={uploadPost}>Upload</button>
+                 <button className="waves-effect waves-light btn"  style={{ marginTop: "10px" }} onClick={postCloud}>Upload</button>
         </div>
     )
 }

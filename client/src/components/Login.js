@@ -24,6 +24,8 @@ function Login() {
         if (data.error) {
           setLogInError({ error: data.error, display: true });
         } else {
+          localStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
           setLogInError({ display: false });
         }
       })
