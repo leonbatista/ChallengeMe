@@ -74,7 +74,8 @@ function Signup() {
                 </p>
               );
             case false:
-              return <h1>You haved successfuly signed up</h1>;
+              return <p>You haved successfuly signed up</p>;
+
             default:
               return;
           }

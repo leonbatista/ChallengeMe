@@ -20,6 +20,7 @@ function Login() {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         if (data.error) {
           setLogInError({ error: data.error, display: true });
         } else {
