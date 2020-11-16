@@ -69,7 +69,7 @@ function Upload() {
 
 
     return (
-        <div className="card input-field">
+        <div className="card input-field" style={{width:"80%"}}>
             <input type="text" placeholder="Title" value={title} onChange={(event)=>{setTitle(event.target.value)}} />
             <input type="text" placeholder="Body" value={body} onChange={(event)=>{setBody(event.target.value)}} />
 

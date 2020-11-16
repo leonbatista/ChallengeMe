@@ -61,3 +61,13 @@
   margin: 26px auto;
   padding: 20px 0px;
 }
+
+.input-field {
+  text-align: left;
+}
+
+.card-video video{
+  max-width: 100%;
+  outline: none;
+ 
+}

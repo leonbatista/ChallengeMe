@@ -5,7 +5,7 @@ const requireLogin = require("../middleware/requireLogin");
 const Post = mongoose.model("Post");
 
 //Get all of the post created
-router.get("/allposts", (req, res) => {
+router.get("/allposts", requireLogin, (req, res) => {
   Post.find()
     //Extend postedBy to show name and id
     .populate("postedBy", "_id name")
