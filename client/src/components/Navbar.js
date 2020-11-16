@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 //Link allows for switching from one route to the other without rendering page
 //replaces <a> tags-
-import { Link } from "react-router-dom";
+import { Link, useHistory} from "react-router-dom";
 import { UserContext } from "../App";
 
 function Navbar() {
   const { state, dispatch } = useContext(UserContext);
+  const history = useHistory()
   const renderList = () => {
     if (state) {
       return [
@@ -15,6 +16,12 @@ function Navbar() {
         <li>
           <Link to="/upload">Upload</Link>
         </li>,
+        <li><Link onClick={()=>{
+          localStorage.clear()
+          dispatch({type:"LOGOUT"})
+          history.push("/login")
+        }}>Log Out</Link></li>
+        
       ];
     } else {
       return [

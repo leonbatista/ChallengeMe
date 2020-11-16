@@ -7,13 +7,16 @@ function Home() {
       headers: { "Authorization":"Bearer "+localStorage.getItem("jwt") }
     })
       .then((res) => res.json())
-      .then((result) => setData(result.posts));
+      .then((result) => {
+        setData(result.posts)
+      });
   }, []);
   return (
     <div className="home">
+      
       {data.map((post) => {
         return (
-          <div className="card card-home">
+          <div className="card card-home" key={post._id}>
             <div
               className="home-profile-info"
               style={{

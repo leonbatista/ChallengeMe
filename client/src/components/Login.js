@@ -56,10 +56,12 @@ function Login() {
             setPassword(event.target.value);
           }}
         />
+        
         <button
           className="waves-effect waves-light btn"
           style={{ marginTop: "10px" }}
           onClick={() => LogIn()}
+         
         >
           Log In
         </button>
