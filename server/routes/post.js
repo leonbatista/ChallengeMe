@@ -52,4 +52,40 @@ router.post("/createpost", requireLogin, (req, res) => {
     });
 });
 
+//Upgrade request
+router.put("/like",requireLogin,(req,res)=>{
+  Post.findByIdAndUpdate(req.body.postId,{
+    //append the value to an array in mongodb
+    $push:{likes:req.user._id}
+  }, {
+    //return documnet after changes
+    new:true
+  }).exec((err,result)=>{
+    if(err){
+      return res.status(422).json({error:err})
+    }
+    else{
+      res.json(result)
+    }
+  })
+})
+
+//Upgrade request
+router.put("/unlike",requireLogin,(req,res)=>{
+  Post.findByIdAndUpdate(req.body.postId,{
+    //removes all instances of the object in mongodb
+    $pull:{likes:req.user._id}
+  }, {
+    //return documnet after changes
+    new:true
+  }).exec((err,result)=>{
+    if(err){
+      return res.status(422).json({error:err})
+    }
+    else{
+      res.json(result)
+    }
+  })
+})
+
 module.exports = router;
