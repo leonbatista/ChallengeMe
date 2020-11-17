@@ -4,13 +4,13 @@ import {UserContext} from "../App"
 function Home() {
   const [data, setData] = useState([]);
   const {state,dispatch} = useContext(UserContext)
+  const [commentField,setCommentField] = useState("")
   useEffect(() => {
     fetch("/allposts", {
       headers: { "Authorization":"Bearer "+localStorage.getItem("jwt") }
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         setData(result.posts.reverse())
       });
   }, []);
@@ -68,6 +68,34 @@ function Home() {
   })
   }
 
+  const makeComment = (text,postId) => {
+    fetch("/comment",{
+      method:"put",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
+      },
+      body:JSON.stringify({
+        postId:postId,
+        text:text
+      })
+    })
+    .then(res => res.json())
+    .then(result => {
+      console.log(result);
+      const newData = data.map(item =>{
+        if(item._id === result._id){
+          return result
+        }
+        else{
+          return item
+        }
+      })
+      setData(newData)
+  }).catch(err=>{
+    console.log(err);
+  })
+  }
 
   return (
     <div className="home">
@@ -116,7 +144,20 @@ function Home() {
                 <h6>{post.likes.length} Likes </h6>
                 <h6>{post.title}</h6>
                 <p>{post.body}</p>
-              <input type="text" placeholder="Add comment" />
+                <form onSubmit ={(event) => {
+                  event.preventDefault()
+                  makeComment(event.target[0].value,post._id)
+                  
+                }}> 
+              <input type="text" placeholder="Add comment"  />
+                </form>
+                {
+                  post.comments.map(item => {
+                    return(
+                    <h6 key={item._id}><span style={{fontWeight:"500"}}>{item.postedBy.name}</span> {item.text}</h6>
+                    )
+                  })
+                }
             </div>
           </div>
         );

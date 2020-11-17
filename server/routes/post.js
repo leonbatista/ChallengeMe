@@ -9,6 +9,7 @@ router.get("/allposts", requireLogin, (req, res) => {
   Post.find()
     //Extend postedBy to show name and id
     .populate("postedBy", "_id name")
+    .populate("comments.postedBy", "_id name")
     .then((posts) => {
       res.json({ posts });
     })
@@ -79,6 +80,31 @@ router.put("/unlike",requireLogin,(req,res)=>{
     //return documnet after changes
     new:true
   }).exec((err,result)=>{
+    if(err){
+      return res.status(422).json({error:err})
+    }
+    else{
+      res.json(result)
+    }
+  })
+})
+
+
+router.put("/comment",requireLogin,(req,res)=>{
+  const comment = {
+    text:req.body.text,
+    postedBy:req.user._id
+  }
+  Post.findByIdAndUpdate(req.body.postId,{
+    //append the value to an array in mongodb
+    $push:{comments:comment}
+  }, {
+    //return documnet after changes
+    new:true
+  })
+  .populate("comments.postedBy","_id name")
+  .populate("postedBy","_id name")
+  .exec((err,result)=>{
     if(err){
       return res.status(422).json({error:err})
     }
