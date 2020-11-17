@@ -8,7 +8,7 @@ function Home() {
     })
       .then((res) => res.json())
       .then((result) => {
-        setData(result.posts)
+        setData(result.posts.reverse())
       });
   }, []);
   return (

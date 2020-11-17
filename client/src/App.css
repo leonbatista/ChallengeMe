@@ -40,12 +40,13 @@
   justify-content: space-around;
 }
 
-.proImages {
+.proVideos {
   width: 30%;
   /* height: auto; */
   height: 280px;
   margin-bottom: 3%;
   object-fit: cover;
+  outline: none;
 }
 
 @media (max-width: 500px) {

@@ -53,7 +53,12 @@ function Login() {
           placeholder="Password"
           value={password}
           onChange={(event) => {
-            setPassword(event.target.value);
+            setPassword(event.target.value)
+          }}
+         onKeyPress={(event)=>{
+            if(event.key === "Enter"){  
+              LogIn()
+            }
           }}
         />
         
