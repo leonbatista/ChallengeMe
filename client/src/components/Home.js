@@ -1,16 +1,74 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import {UserContext} from "../App"
 
 function Home() {
   const [data, setData] = useState([]);
+  const {state,dispatch} = useContext(UserContext)
   useEffect(() => {
     fetch("/allposts", {
       headers: { "Authorization":"Bearer "+localStorage.getItem("jwt") }
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result);
         setData(result.posts.reverse())
       });
   }, []);
+
+  const likePost = (id) =>{
+    fetch("/like",{
+      method:"put",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
+      },
+      body:JSON.stringify({
+        postId:id
+      })
+      }).then(res=>res.json())
+      .then(result => {
+        const newData = data.map(item =>{
+          if(item._id === result._id){
+            return result
+          }
+          else{
+            return item
+          }
+        })
+        setData(newData)
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+
+  const unlikePost = (id) =>{
+   
+    fetch("/unlike",{
+      method:"put",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
+      },
+      body:JSON.stringify({
+        postId:id
+      })
+    }).then(res=>res.json())
+    .then(result => {
+      const newData = data.map(item =>{
+        if(item._id === result._id){
+          return result
+        }
+        else{
+          return item
+        }
+      })
+      setData(newData)
+  }).catch(err=>{
+    console.log(err);
+  })
+  }
+
+
   return (
     <div className="home">
       
@@ -51,7 +109,11 @@ function Home() {
               />
             </div>
             <div className="card-content input-field">
-              <i className="material-icons">favorite</i>
+              <i className="material-icons" 
+                 style={post.likes.includes(state._id)?{color:"red"}:{color:"black"}} 
+                 onClick={post.likes.includes(state._id)?()=>unlikePost(post._id):()=>likePost(post._id)} 
+                 >favorite</i>
+                <h6>{post.likes.length} Likes </h6>
                 <h6>{post.title}</h6>
                 <p>{post.body}</p>
               <input type="text" placeholder="Add comment" />
