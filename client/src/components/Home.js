@@ -4,7 +4,7 @@ import {UserContext} from "../App"
 function Home() {
   const [data, setData] = useState([]);
   const {state,dispatch} = useContext(UserContext)
-  const [commentField,setCommentField] = useState("")
+  
   useEffect(() => {
     fetch("/allposts", {
       headers: { "Authorization":"Bearer "+localStorage.getItem("jwt") }
@@ -97,6 +97,23 @@ function Home() {
   })
   }
 
+  const deletePost = (postId) => {
+    fetch(`/deletepost/${postId}`,{
+      method:"delete",
+      headers:{
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
+      }
+    })
+    .then(res => res.json())
+    .then(result => {
+      console.log(result);
+      const newData = data.filter(item => {
+        return item._id !== result._id
+      })
+      setData(newData)
+    })
+  }
+
   return (
     <div className="home">
       
@@ -111,6 +128,7 @@ function Home() {
                 paddingBottom: "10px",
               }}
             >
+
               <div className="home-profile-pic" style={{ width: "10%" }}>
                 <img
                   style={{
@@ -127,7 +145,8 @@ function Home() {
                 className="home-profile-name"
                 style={{ width: "90%", textAlign: "left" }}
               >
-                <h5>{post.postedBy.name}</h5>
+                <h5>{post.postedBy.name} 
+                {post.postedBy._id === state._id?<button style={{float:"right"}} onClick={()=>deletePost(post._id)}>DELETE</button>:null}</h5>
               </div>
             </div>
             <div className="card-video">
@@ -154,7 +173,7 @@ function Home() {
                 {
                   post.comments.map(item => {
                     return(
-                    <h6 key={item._id}><span style={{fontWeight:"500"}}>{item.postedBy.name}</span> {item.text}</h6>
+                    <h6 key={item._id}><span style={{fontWeight:"500"}}>{item.postedBy.name}</span> {item.text} <button style={{float:"right"}}>DELETE</button></h6>
                     )
                   })
                 }
