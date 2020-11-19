@@ -84,7 +84,6 @@ function Home() {
     })
     .then(res => res.json())
     .then(result => {
-      console.log(result);
       const newData = data.map(item =>{
         if(item._id === result._id){
           return result
@@ -195,7 +194,7 @@ function Home() {
                 <form onSubmit ={(event) => {
                   event.preventDefault()
                   makeComment(event.target[0].value,post._id)
-                  
+                  event.target[0].value=""
                 }}> 
               <input type="text" placeholder="Add comment"  />
                 </form>
