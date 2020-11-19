@@ -61,7 +61,10 @@ router.put("/like",requireLogin,(req,res)=>{
   }, {
     //return documnet after changes
     new:true
-  }).exec((err,result)=>{
+  })
+  .populate("comments.postedBy","_id name")
+  .populate("postedBy","_id name")
+  .exec((err,result)=>{
     if(err){
       return res.status(422).json({error:err})
     }
@@ -79,7 +82,10 @@ router.put("/unlike",requireLogin,(req,res)=>{
   }, {
     //return documnet after changes
     new:true
-  }).exec((err,result)=>{
+  })
+  .populate("comments.postedBy","_id name")
+  .populate("postedBy","_id name")
+  .exec((err,result)=>{
     if(err){
       return res.status(422).json({error:err})
     }
@@ -97,7 +103,14 @@ router.put("/comment",requireLogin,(req,res)=>{
   }
   Post.findByIdAndUpdate(req.body.postId,{
     //append the value to an array in mongodb
-    $push:{comments:comment}
+    //  $push:{comments:comment}
+    $push:{
+      //Place the comment at the begining of the array of comments
+      comments: {
+        $each: [comment],
+        $position:0
+      }
+    }
   }, {
     //return documnet after changes
     new:true
@@ -131,6 +144,28 @@ router.delete("/deletepost/:postId",requireLogin,(req,res) =>{
     }
   })
 
+})
+
+router.put("/deletecomment",requireLogin,(req,res)=>{
+    const comment = {
+      _id: req.body.commentId
+    }
+    Post.findByIdAndUpdate({_id: req.body.postId},{
+      $pull:{comments:comment}
+    }, {
+      new:true
+    })
+    //populate retains information on call, in this case we keep person who posted comment and their profile name
+    .populate("comments.postedBy","_id name")
+    .populate("postedBy","_id name")
+    .exec((err,result)=>{
+      if(err){
+        return res.status(422).json({error:err})
+      }
+      else{
+        res.json(result)
+      }
+    })
 })
 
 module.exports = router;

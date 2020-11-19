@@ -5,6 +5,7 @@ function Home() {
   const [data, setData] = useState([]);
   const {state,dispatch} = useContext(UserContext)
   
+  
   useEffect(() => {
     fetch("/allposts", {
       headers: { "Authorization":"Bearer "+localStorage.getItem("jwt") }
@@ -12,6 +13,7 @@ function Home() {
       .then((res) => res.json())
       .then((result) => {
         setData(result.posts.reverse())
+        
       });
   }, []);
 
@@ -114,6 +116,33 @@ function Home() {
     })
   }
 
+  const deleteComment = (postId,commentId) => {
+    fetch("/deletecomment",{
+      method:"put",
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer "+localStorage.getItem("jwt")
+      },
+      body:JSON.stringify({
+        postId:postId,
+        commentId: commentId
+      })
+      }).then(res=>res.json())
+      .then(result => {
+        const newData = data.map(item =>{
+          if(item._id === result._id){
+            return result
+          }
+          else{
+            return item
+          }
+        })
+        setData(newData)
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+
   return (
     <div className="home">
       
@@ -170,10 +199,12 @@ function Home() {
                 }}> 
               <input type="text" placeholder="Add comment"  />
                 </form>
-                {
+                {              
                   post.comments.map(item => {
                     return(
-                    <h6 key={item._id}><span style={{fontWeight:"500"}}>{item.postedBy.name}</span> {item.text} <button style={{float:"right"}}>DELETE</button></h6>
+                    <h6 key={item._id}><span style={{fontWeight:"500"}}>{item.postedBy.name}</span> {item.text} 
+                    {(item.postedBy._id === state._id || post.postedBy._id === state._id) && <button style={{float:"right"}} onClick={()=>deleteComment(post._id,item._id)}>DELETE</button>}
+                    </h6>
                     )
                   })
                 }
