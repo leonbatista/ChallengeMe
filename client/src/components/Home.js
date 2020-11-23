@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import {UserContext} from "../App"
+import { Link } from "react-router-dom";
 
 function Home() {
   const [data, setData] = useState([]);
@@ -141,6 +142,8 @@ function Home() {
       console.log(err);
     })
   }
+  
+
 
   return (
     <div className="home">
@@ -173,7 +176,7 @@ function Home() {
                 className="home-profile-name"
                 style={{ width: "90%", textAlign: "left" }}
               >
-                <h5>{post.postedBy.name} 
+                <h5 onClick={<Link to="/lol">Sign Up </Link>}>{post.postedBy.name} 
                 {post.postedBy._id === state._id?<button style={{float:"right"}} onClick={()=>deletePost(post._id)}>DELETE</button>:null}</h5>
               </div>
             </div>
