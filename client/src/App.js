@@ -1,12 +1,13 @@
 import React, { useEffect, createContext, useReducer, useContext } from "react";
 import Navbar from "./components/Navbar";
 import "./App.css";
-import { BrowserRouter, Route, useHistory } from "react-router-dom";
+import { BrowserRouter, Route, Router, useHistory } from "react-router-dom";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Upload from "./components/Upload";
+import User from "./components/User"
 import { reducer, initialState } from "./reducers/userReducer";
 
 //Passing information through states
@@ -34,17 +35,20 @@ const Routing = () => {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/profile">
+      <Route exact path="/profile">
         <Profile />
       </Route>
       <Route path="/signup">
         <Signup />
       </Route>
-      <Route path="/login">
+      <Route  path="/login">
         <Login />
       </Route>
       <Route path="/upload">
         <Upload />
+      </Route>
+      <Route path="/profile/:userId">
+        <User />
       </Route>
     </div>
   );

@@ -151,9 +151,11 @@ function Home() {
       {data.map((post) => {
         return (
           <div className="card card-home" key={post._id}>
-            <div
+      
+            <Link to ={ state._id === post.postedBy._id ? "/profile" : `/profile/${post.postedBy._id}`}
               className="home-profile-info"
               style={{
+                color:"black",
                 display: "flex",
                 borderBottom: "1px solid #D0D0D0",
                 paddingBottom: "10px",
@@ -176,10 +178,10 @@ function Home() {
                 className="home-profile-name"
                 style={{ width: "90%", textAlign: "left" }}
               >
-                <h5 onClick={<Link to="/lol">Sign Up </Link>}>{post.postedBy.name} 
+                <h5>{post.postedBy.name} 
                 {post.postedBy._id === state._id?<button style={{float:"right"}} onClick={()=>deletePost(post._id)}>DELETE</button>:null}</h5>
               </div>
-            </div>
+            </Link>
             <div className="card-video">
               <video
                 src = {post.video}
