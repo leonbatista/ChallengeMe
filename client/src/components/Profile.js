@@ -16,7 +16,7 @@ function Profile() {
           })
     },[])
 
-
+  
 
     return (
         <div style={{maxWidth:"900px", margin:"0px auto"}}>
@@ -27,8 +27,8 @@ function Profile() {
                     <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
                         <h4>{data.length} Posts</h4>
                         {console.log(state)}
-                        <h4>0 Followers</h4>
-                        <h4>0 Following</h4>
+                        <h4>{state?state.followers.length:"0"} Followers</h4>
+                        <h4>{state?state.following.length:"0"} Following</h4>
                     </div>
                 </div>
             </div>
