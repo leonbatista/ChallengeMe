@@ -4,6 +4,7 @@ import {UserContext} from "../App"
 
 function Profile() {
     const [data,setData] = useState([])
+    const [profile,setProfile] = useState([])
     const {state, dispatch} = useContext(UserContext)
     useEffect(()=>{
         fetch("/mypost", {
@@ -15,6 +16,8 @@ function Profile() {
           })
     },[])
 
+
+
     return (
         <div style={{maxWidth:"900px", margin:"0px auto"}}>
             <div style={{display:"flex",justifyContent:"space-around",margin:"18px auto",borderBottom:"1px solid grey",padding:"30px 0px"}}>
@@ -23,6 +26,7 @@ function Profile() {
                     <h4>{state? state.name:"Loading"}</h4>
                     <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
                         <h4>{data.length} Posts</h4>
+                        {console.log(state)}
                         <h4>0 Followers</h4>
                         <h4>0 Following</h4>
                     </div>

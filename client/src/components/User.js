@@ -17,6 +17,38 @@ function User() {
             });
     },[])
 
+    const handleFollow = () =>{
+        fetch("/follow",{
+            method:"put",
+            headers:{
+                "Content-type":"application/json",
+                "Authorization":"Bearer "+localStorage.getItem('jwt')
+            },
+            body:JSON.stringify({
+                followId:userId
+            })
+        }).then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+        })
+    }
+
+    const handleUnFollow = () =>{
+        fetch("/unfollow",{
+            method:"put",
+            headers:{
+                "Content-type":"application/json",
+                "Authorization":"Bearer "+localStorage.getItem('jwt')
+            },
+            body:JSON.stringify({
+                unfollowId:userId
+            })
+        }).then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+        })
+    }
+
     return (
         <>
          {data ?  <div style={{maxWidth:"900px", margin:"0px auto"}}>
@@ -26,9 +58,11 @@ function User() {
                     <h4>{data.user.name}</h4>
                     <div style={{display:"flex",justifyContent:"space-between",width:"108%"}}>
                         <h4>{data.posts.length} Posts</h4>
-                        <h4>0 Followers</h4>
-                        <h4>0 Following</h4>
+                        <h4>{data.user.followers.length} Followers</h4>
+                        <h4>{data.user.following.length} Following</h4>
+                        {console.log(state)}
                     </div>
+                     <button onClick={handleFollow} style={{width:"100%",height:"28px"}}>Follow User</button>
                 </div>
             </div>
             <div className="gallery">
