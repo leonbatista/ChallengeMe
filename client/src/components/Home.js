@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import {UserContext} from "../App"
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import image from "../image/defaultProfile.png"
 
 function Home() {
   const [data, setData] = useState([]);
@@ -151,7 +152,7 @@ function Home() {
       {data.map((post) => {
         return (
           <div className="card card-home" key={post._id}>
-      
+            
             <Link to ={ state._id === post.postedBy._id ? "/profile" : `/profile/${post.postedBy._id}`}
               className="home-profile-info"
               style={{
@@ -161,7 +162,6 @@ function Home() {
                 paddingBottom: "10px",
               }}
             >
-
               <div className="home-profile-pic" style={{ width: "10%" }}>
                 <img
                   style={{
@@ -170,18 +170,18 @@ function Home() {
                     borderRadius: "80px",
                     objectFit: "cover",
                   }}
-                  src= "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                  alt=""
+                  src= {image}
+                  alt="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
                 />
               </div>
               <div
                 className="home-profile-name"
                 style={{ width: "90%", textAlign: "left" }}
               >
-                <h5>{post.postedBy.name} 
-                {post.postedBy._id === state._id?<button style={{float:"right"}} onClick={()=>deletePost(post._id)}>DELETE</button>:null}</h5>
-              </div>
-            </Link>
+                <h5>{post.postedBy.name}
+                <Link to="/">{post.postedBy._id === state._id?<button style={{float:"right"}} onClick={()=>deletePost(post._id)}>DELETE</button>:null}</Link></h5>
+                </div>
+              </Link>
             <div className="card-video">
               <video
                 src = {post.video}

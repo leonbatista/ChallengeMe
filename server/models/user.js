@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema({
     type:ObjectId,
     ref:"User"
   }],
+  profilePic: {
+    type: String,
+  },
 });
 
 mongoose.model("User", userSchema);

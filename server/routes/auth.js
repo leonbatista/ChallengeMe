@@ -28,6 +28,8 @@ router.post("/signup", (req, res) => {
           email: email,
           password: encryptedpassword,
           name: name,
+          following: [],
+          followers: []
         });
         //Save new user to the database
         user
