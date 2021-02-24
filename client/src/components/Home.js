@@ -152,7 +152,7 @@ function Home() {
       {data.map((post) => {
         return (
           <div className="card card-home" key={post._id}>
-            
+            {console.log(post.postedBy)}
             <Link to ={ state._id === post.postedBy._id ? "/profile" : `/profile/${post.postedBy._id}`}
               className="home-profile-info"
               style={{
@@ -170,7 +170,7 @@ function Home() {
                     borderRadius: "80px",
                     objectFit: "cover",
                   }}
-                  src= {image}
+                  src= {post.postedBy.profilePic?post.postedBy.profilePic:image}
                   alt="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
                 />
               </div>
@@ -179,7 +179,7 @@ function Home() {
                 style={{ width: "90%", textAlign: "left" }}
               >
                 <h5>{post.postedBy.name}
-                <Link to="/">{post.postedBy._id === state._id?<button style={{float:"right"}} onClick={()=>deletePost(post._id)}>DELETE</button>:null}</Link></h5>
+                <Link to="/">{post.postedBy._id === state._id?<i class=" material-icons" style={{float:"right",color:"black", fontSize:"150%", paddingRight:"1%",color:"#424242"}} onClick={()=>deletePost(post._id)}>delete_forever</i>:null}</Link></h5>
                 </div>
               </Link>
             <div className="card-video">
@@ -188,12 +188,14 @@ function Home() {
                 controls
               />
             </div>
-            <div className="card-content input-field">
+            <div className="card-content input-field" style={{marginTop:"0rem"}}>
+              <div style={{display:"flex"}}>
               <i className="material-icons" 
-                 style={post.likes.includes(state._id)?{color:"red"}:{color:"black"}} 
+                 style={post.likes.includes(state._id)?{color:"red",paddingTop:"10px"}:{color:"black",paddingTop:"10px"}} 
                  onClick={post.likes.includes(state._id)?()=>unlikePost(post._id):()=>likePost(post._id)} 
-                 >favorite</i>
-                <h6>{post.likes.length} Likes </h6>
+                 >favorite </i>
+                <h6 style={{order:"4",paddingLeft:"0.5%"}}>{post.likes.length} Likes </h6>
+                </div>
                 <h6>{post.title}</h6>
                 <p>{post.body}</p>
                 <form onSubmit ={(event) => {
@@ -207,7 +209,7 @@ function Home() {
                   post.comments.map(item => {
                     return(
                     <h6 key={item._id}><span style={{fontWeight:"500"}}>{item.postedBy.name}</span> {item.text} 
-                    {(item.postedBy._id === state._id || post.postedBy._id === state._id) && <button style={{float:"right"}} onClick={()=>deleteComment(post._id,item._id)}>DELETE</button>}
+                    {(item.postedBy._id === state._id || post.postedBy._id === state._id) && <i className="material-icons" style={{float:"right"}} onClick={()=>deleteComment(post._id,item._id)}>delete_sweep</i>}
                     </h6>
                     )
                   })

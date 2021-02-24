@@ -8,8 +8,8 @@ const Post = mongoose.model("Post");
 router.get("/allposts", requireLogin, (req, res) => {
   Post.find()
     //Extend postedBy to show name and id
-    .populate("postedBy", "_id name")
-    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name profilePic")
+    .populate("comments.postedBy", "_id name profilePic")
     .then((posts) => {
       res.json({ posts });
     })
@@ -62,8 +62,8 @@ router.put("/like",requireLogin,(req,res)=>{
     //return documnet after changes
     new:true
   })
-  .populate("comments.postedBy","_id name")
-  .populate("postedBy","_id name")
+  .populate("comments.postedBy","_id name profilePic")
+  .populate("postedBy","_id name profilePic")
   .exec((err,result)=>{
     if(err){
       return res.status(422).json({error:err})
@@ -83,8 +83,8 @@ router.put("/unlike",requireLogin,(req,res)=>{
     //return documnet after changes
     new:true
   })
-  .populate("comments.postedBy","_id name")
-  .populate("postedBy","_id name")
+  .populate("comments.postedBy","_id name  profilePic")
+  .populate("postedBy","_id name  profilePic")
   .exec((err,result)=>{
     if(err){
       return res.status(422).json({error:err})
@@ -115,8 +115,8 @@ router.put("/comment",requireLogin,(req,res)=>{
     //return documnet after changes
     new:true
   })
-  .populate("comments.postedBy","_id name")
-  .populate("postedBy","_id name")
+  .populate("comments.postedBy","_id name profilePic")
+  .populate("postedBy","_id name profilePic")
   .exec((err,result)=>{
     if(err){
       return res.status(422).json({error:err})
@@ -156,8 +156,8 @@ router.put("/deletecomment",requireLogin,(req,res)=>{
       new:true
     })
     //populate retains information on call, in this case we keep person who posted comment and their profile name
-    .populate("comments.postedBy","_id name")
-    .populate("postedBy","_id name")
+    .populate("comments.postedBy","_id name  profilePic")
+    .populate("postedBy","_id name  profilePic")
     .exec((err,result)=>{
       if(err){
         return res.status(422).json({error:err})
