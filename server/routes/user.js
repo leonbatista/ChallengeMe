@@ -67,4 +67,22 @@ router.put("/unfollow", requireLogin,(req,res)=>{
     })
 })
 
+
+router.put("/changeProfilePic",requireLogin,(req,res)=>{
+    User.findByIdAndUpdate(req.body.userId,{
+        profilePic: req.body.profilePic
+    })
+    .then(result =>{
+        res.json(result)
+        console.log("Picture Changed Successfully");
+      })
+})
+
+router.put("/profilePic",requireLogin,(req,res)=>{
+    User.findById(req.body.userId)
+    .then(result => {
+        res.json(result)
+    })
+})
+
 module.exports = router;
