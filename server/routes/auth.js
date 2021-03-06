@@ -71,8 +71,8 @@ router.post("/signin", (req, res) => {
             { _id: savedUser._id },
             JSONTOKEN_SECRET
           );
-          const { _id, name, email } = savedUser;
-          res.json({ token: token, user: { _id, name, email } });
+          const { _id, name, email,following, followers} = savedUser;
+          res.json({ token: token, user: { _id, name, email,following, followers} });
         } else {
           res.status(422).json({ error: "Username and password are invalid." });
         }

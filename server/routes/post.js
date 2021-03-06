@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const requireLogin = require("../middleware/requireLogin");
 const Post = mongoose.model("Post");
 
+// This is going to be  used for an explore page
 //Get all of the post created
 router.get("/allposts", requireLogin, (req, res) => {
   Post.find()
@@ -17,6 +18,20 @@ router.get("/allposts", requireLogin, (req, res) => {
       console.log(err);
     });
 });
+
+router.get("/followingPosts", requireLogin, (req, res) => {
+  Post.find({postedBy:{$in:req.user.following}})
+    //Extend postedBy to show name and id
+    .populate("postedBy", "_id name profilePic")
+    .populate("comments.postedBy", "_id name profilePic")
+    .then((posts) => {
+      res.json({ posts });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 
 router.get("/mypost", requireLogin, (req, res) => {
   Post.find({ postedBy: req.user._id })

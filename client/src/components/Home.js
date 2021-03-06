@@ -9,11 +9,12 @@ function Home() {
   
   
   useEffect(() => {
-    fetch("/allposts", {
+    fetch("/followingPosts", {
       headers: { "Authorization":"Bearer "+localStorage.getItem("jwt") }
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result);
         setData(result.posts.reverse())
         
       });
