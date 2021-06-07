@@ -86,7 +86,7 @@ function Navbar() {
       <ul className="search-users-list">
         {usersFound ? usersFound.map(user => {
           return (
-            <Link onClick={() => resetSearch()} to={"/profile/" + user._id}><li > <img src={user.profilePic} alt="" style={{
+            <Link onClick={() => resetSearch()} to={"/profile/" + user._id}><li style={{ color: "black" }}> <img src={user.profilePic} alt="" style={{
               width: "40px",
               height: "40px",
               borderRadius: "80px",
