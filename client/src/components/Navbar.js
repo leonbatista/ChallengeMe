@@ -43,7 +43,7 @@ function Navbar() {
             ChallengeMe
           </Link>
           <div className="search-bar">
-            <input type="text" placeholder="Search" className="search-text" style={{ color: "#fff", border: "solid 3px #38b174", backgroundColor: "#38b174", borderRadius: "50px", paddingLeft: "5%", paddingRight: "5%" }} />
+            <input type="text" placeholder="Search" className="search-text" style={{ color: "#fff", border: "solid 3px #38b174", backgroundColor: "#38b174", borderRadius: "50px", paddingLeft: "5%", paddingRight: "5%", }} />
           </div>
           <ul id="nav-mobile" style={{ flex: "1" }}>
             {renderList()}
