@@ -177,9 +177,9 @@ function Home() {
               </div>
               <div
                 className="home-profile-name"
-                style={{ width: "90%", textAlign: "left" }}
+                style={{ width: "90%", textAlign: "left", }}
               >
-                <h5>{post.postedBy.name}
+                <h5 style={{fontSize:"20px"}}>{post.postedBy.name}
                 <Link to="/">{post.postedBy._id === state._id?<i class=" material-icons" style={{float:"right",color:"black", fontSize:"150%", paddingRight:"1%",color:"#424242"}} onClick={()=>deletePost(post._id)}>delete_forever</i>:null}</Link></h5>
                 </div>
               </Link>

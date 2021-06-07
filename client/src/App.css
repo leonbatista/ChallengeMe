@@ -2,7 +2,16 @@
 /* we can use !important to make sure nothing overwirtes the css we create */
 .nav-wrapper {
   background-color: #43d58c;
+  display: flex;
 }
+
+.search-bar{
+  flex: 1;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+
 
 .card {
   padding: 20px;

@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Upload from "./components/Upload";
 import User from "./components/User"
+import Search from "./components/Search"
 import { reducer, initialState } from "./reducers/userReducer";
 
 //Passing information through states
@@ -37,6 +38,9 @@ const Routing = () => {
       </Route>
       <Route exact path="/profile">
         <Profile />
+      </Route>
+      <Route path="/search">
+        <Search />
       </Route>
       <Route path="/signup">
         <Signup />
