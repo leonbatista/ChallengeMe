@@ -11,7 +11,12 @@
   margin-right: 20%;
 }
 
-
+.search-users-list{
+  background-color: red;
+  margin-left: 35%;
+  margin-right: 35%;
+  padding-left: 3%;
+}
 
 .card {
   padding: 20px;

@@ -85,4 +85,16 @@ router.put("/profilePic",requireLogin,(req,res)=>{
     })
 })
 
+router.post("/findUser",(req,res)=>{
+    let findingUser = new RegExp("^"+req.body.query)
+    User.find({name:{$regex:findingUser,
+    $options: "i"
+    }})
+    .then(user => {
+        res.json({user})
+    }).catch(err=> {
+        console.log(err);
+    })
+})
+
 module.exports = router;

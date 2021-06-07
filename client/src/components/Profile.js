@@ -11,6 +11,7 @@ function Profile() {
     const [url, setURL] = useState("")
 
     useEffect(() => {
+        
         fetch("/mypost", {
             headers: { "Authorization": "Bearer " + localStorage.getItem("jwt") }
         })
