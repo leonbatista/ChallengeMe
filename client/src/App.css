@@ -13,8 +13,8 @@
 
 .search-users-list{
   background-color: #F0F0F0;
-  margin-left: 35%;
-  margin-right: 35%;
+  margin-left: 37%;
+  margin-right: 37%;
   padding-left: 3%;
 }
 
@@ -75,6 +75,7 @@
   height: max-content;
   margin: 26px auto;
   padding: 20px 0px;
+  position: relative;
 }
 
 .card-content{

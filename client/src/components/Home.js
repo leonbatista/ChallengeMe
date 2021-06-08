@@ -152,7 +152,7 @@ function Home() {
       
       {data.map((post) => {
         return (
-          <div className="card card-home" key={post._id}>
+          <div className="card card-home" key={post._id} style={{position:"relative",paddingTop:"10px",paddingBottom:"0"}}>
             {console.log(post.postedBy)}
             <Link to ={ state._id === post.postedBy._id ? "/profile" : `/profile/${post.postedBy._id}`}
               className="home-profile-info"
@@ -160,27 +160,25 @@ function Home() {
                 color:"black",
                 display: "flex",
                 borderBottom: "1px solid #D0D0D0",
-                paddingBottom: "10px",
+        
               }}
             >
-              <div className="home-profile-pic" style={{ width: "10%" }}>
+              <div className="home-profile-pic" style={{ width: "10%"}}>
                 <img
                   style={{
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: "80px",
+                    width: "3.6vw",
+                    height: "3.6vw",
+                    borderRadius: "100%",
                     objectFit: "cover",
+                    
                   }}
                   src= {post.postedBy.profilePic?post.postedBy.profilePic:image}
                   alt="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
                 />
               </div>
-              <div
-                className="home-profile-name"
-                style={{ width: "90%", textAlign: "left", }}
-              >
-                <h5 style={{fontSize:"20px"}}>{post.postedBy.name}
-                <Link to="/">{post.postedBy._id === state._id?<i class=" material-icons" style={{float:"right",color:"black", fontSize:"150%", paddingRight:"1%",color:"#424242"}} onClick={()=>deletePost(post._id)}>delete_forever</i>:null}</Link></h5>
+              <div style={{flex:"1",position:"relative"}}>
+                <p style={{fontSize:"1.2vw", right:"0",textAlign:"left", marginBottom:"16px",fontWeight:"600"}}>{post.postedBy.name}</p>
+                <Link to="/">{post.postedBy._id === state._id?<i class=" material-icons" style={{float:"right",color:"black", fontSize:"150%", paddingRight:"1%",color:"#424242"}} onClick={()=>deletePost(post._id)}>delete_forever</i>:null}</Link>
                 </div>
               </Link>
             <div className="card-video">

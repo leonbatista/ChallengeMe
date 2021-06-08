@@ -76,24 +76,27 @@ function Navbar() {
               onChange={(event) => {
                 findUser(event.target.value)
               }}
-              style={{ color: "#fff", border: "solid 3px #38b174", backgroundColor: "#38b174", borderRadius: "50px", paddingLeft: "5%", paddingRight: "5%", }} />
+              style={{ color: "#fff", border: "solid 3px #38b174", backgroundColor: "#38b174", borderRadius: "50px", paddingLeft: "5%", paddingRight: "5%" }} />
           </div> : null}
           <ul id="nav-mobile" style={{ flex: "1" }}>
             {renderList()}
           </ul>
         </div>
       </nav>
-      <ul className="search-users-list">
+      <ul className="search-users-list" >
         {usersFound ? usersFound.map(user => {
           return (
-            <Link onClick={() => resetSearch()} to={"/profile/" + user._id}><li style={{ color: "black" }}> <img src={user.profilePic} alt="" style={{
-              width: "40px",
-              height: "40px",
+            <Link onClick={() => resetSearch()} to={"/profile/" + user._id}><li style={{ color: "black", fontWeight: "600", display: "flex", paddingBottom: "2px" }}> <img src={user.profilePic} alt="" style={{
+              width: "2.6vw",
+              height: "2.6vw",
               borderRadius: "80px",
               objectFit: "cover",
+              marginLeft: "8px",
+              marginTop: "8px",
+
 
             }} />
-              {user.name}</li></Link>
+              <p style={{ fontSize: "1vw", marginBottom: "5px", marginTop: "18px", marginLeft: "10px" }} >{user.name}</p></li></Link>
           )
         }) : null}
       </ul>
