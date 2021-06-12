@@ -87,3 +87,7 @@
   outline: none;
  
 }
+
+.material-icons:hover {
+  cursor: pointer;
+}

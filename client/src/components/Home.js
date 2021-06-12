@@ -17,6 +17,8 @@ function Home() {
         console.log(result);
         setData(result.posts.reverse())
         
+      }).catch(err=>{
+        console.log(err);
       });
   }, []);
 

@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const bcrypt = require("bcryptjs");
 const jsontoken = require("jsonwebtoken");
-const { JSONTOKEN_SECRET } = require("../keys");
+// const { JSONTOKEN_SECRET } = require("../keys");
 const requireLogin = require("../middleware/requireLogin");
 
 //Post request
@@ -69,7 +69,7 @@ router.post("/signin", (req, res) => {
         if (passwordMatched) {
           const token = jsontoken.sign(
             { _id: savedUser._id },
-            JSONTOKEN_SECRET
+            process.env.JSONTOKEN_SECRET
           );
           const { _id, name, email,following, followers} = savedUser;
           res.json({ token: token, user: { _id, name, email,following, followers} });

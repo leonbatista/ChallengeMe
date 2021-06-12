@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const { MONGOURI } = require("./keys");
-const PORT = 4000;
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 //Connect to database
-mongoose.connect(MONGOURI, {
+mongoose.connect(process.env.MONGOURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -29,6 +30,11 @@ app.use(require("./routes/auth"));
 app.use(require("./routes/post"));
 app.use(require("./routes/user"));
 
-app.listen(PORT, () => {
-  console.log("server is running on", PORT);
+//Greetings from heroku
+app.get('/',(req,res) => {
+  res.send("ChallengeMe API")
+})
+
+app.listen(process.env.PORT, () => {
+  console.log("server is running on", process.env.PORT);
 });
