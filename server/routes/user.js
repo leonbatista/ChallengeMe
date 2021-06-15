@@ -8,8 +8,10 @@ const User = mongoose.model("User");
 router.get("/profile/:userId",requireLogin,(req,res)=>{
     User.findById({_id: req.params.userId})
     .select("-password")
+    .populate("postedBy", "profilePic")
     .then(user => {
         Post.find({postedBy:req.params.userId})
+        .populate("postedBy", "profilePic")
         .exec((err,posts)=>{
             if(err){
                 return res.status(422).json({error:err})

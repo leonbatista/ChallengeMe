@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import {UserContext} from "../App"
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import image from "../image/defaultProfile.png"
 
 function Home() {
@@ -14,13 +14,13 @@ function Home() {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         setData(result.posts.reverse())
-        
+
       }).catch(err=>{
         console.log(err);
       });
   }, []);
+
 
   const likePost = (id) =>{
     fetch("/like",{
@@ -180,7 +180,7 @@ function Home() {
               </div>
               <div style={{flex:"1",position:"relative"}}>
                 <p style={{fontSize:"1.2vw", right:"0",textAlign:"left", marginBottom:"16px",fontWeight:"600"}}>{post.postedBy.name}</p>
-                <Link to="/">{post.postedBy._id === state._id?<i class=" material-icons" style={{float:"right",color:"black", fontSize:"150%", paddingRight:"1%",color:"#424242"}} onClick={()=>deletePost(post._id)}>delete_forever</i>:null}</Link>
+                <Link to="/">{post.postedBy._id === state._id?<i class=" material-icons" style={{float:"right", fontSize:"150%", paddingRight:"1%",color:"#424242"}} onClick={()=>deletePost(post._id)}>delete_forever</i>:null}</Link>
                 </div>
               </Link>
             <div className="card-video">

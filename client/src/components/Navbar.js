@@ -12,7 +12,7 @@ function Navbar() {
   const renderList = () => {
     if (state) {
       return [
-        <li style={{ float: "right" }}><Link onClick={() => {
+        <li style={{ float: "right" }}><Link  to = "" onClick={() => {
           resetSearch()
           localStorage.clear()
           dispatch({ type: "LOGOUT" })

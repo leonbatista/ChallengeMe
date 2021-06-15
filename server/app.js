@@ -30,6 +30,7 @@ app.use(require("./routes/auth"));
 app.use(require("./routes/post"));
 app.use(require("./routes/user"));
 
+//Remove PORT from .env
 //Greetings from heroku
 app.get('/',(req,res) => {
   res.send("ChallengeMe API")

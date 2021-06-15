@@ -36,7 +36,7 @@ function Profile() {
             .then(data => {
                 setProfile(data)
             })
-    }, [])
+    }, [state._id])
 
     const changeProfilePic = () => {
         fetch("/changeProfilePic", {
