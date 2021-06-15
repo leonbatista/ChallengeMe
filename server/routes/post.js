@@ -25,7 +25,7 @@ router.get("/followingPosts", requireLogin, (req, res) => {
     .populate("postedBy", "_id name profilePic")
     .populate("comments.postedBy", "_id name profilePic")
     .then((posts) => {
-      console.log({posts});
+  
       res.json({ posts });
     })
     .catch((err) => {

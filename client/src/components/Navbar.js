@@ -24,6 +24,9 @@ function Navbar() {
         <li style={{ float: "right" }}>
           <Link onClick={() => resetSearch()} to="/profile">Profile</Link>
         </li>,
+         <li style={{ float: "right" }}>
+         <Link onClick={() => resetSearch()} to="/discover">Discover</Link>
+       </li>
 
       ];
     } else {
