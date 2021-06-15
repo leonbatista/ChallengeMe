@@ -179,8 +179,9 @@ function Home() {
                 />
               </div>
               <div style={{flex:"1",position:"relative"}}>
-                <p style={{fontSize:"1.2vw", right:"0",textAlign:"left", marginBottom:"16px",fontWeight:"600"}}>{post.postedBy.name}</p>
+                <p style={{fontSize:"1.2vw", right:"0",textAlign:"left", marginBottom:"16px",fontWeight:"600"}}>{post.postedBy.name}
                 <Link to="/">{post.postedBy._id === state._id?<i class=" material-icons" style={{float:"right", fontSize:"150%", paddingRight:"1%",color:"#424242"}} onClick={()=>deletePost(post._id)}>delete_forever</i>:null}</Link>
+                  </p>
                 </div>
               </Link>
             <div className="card-video">

@@ -68,10 +68,10 @@ function Navbar() {
 
   return (
     <div>
-      <nav>
-        <div className="nav-wrapper">
+      <nav style={{backgroundColor:"#43d58c"}}>
+        <div className="nav-wrapper" style={{marginLeft:"10%",marginRight:"10%"}}>
           {/* instead of "href" we need to use "to" when using link */}
-          <Link onClick={() => resetSearch()} to={state ? "/" : "/login"} style={{ flex: "1", fontSize: "2.1rem", justifyContent: "center" }}>
+          <Link onClick={() => resetSearch()} to={state ? "/" : "/login"} style={{ flex: "1", fontSize: "2.0em", justifyContent: "center" }}>
             ChallengeMe
           </Link>
           {state ? <div className="search-bar">
