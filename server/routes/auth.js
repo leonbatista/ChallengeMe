@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const jsontoken = require("jsonwebtoken");
 // const { JSONTOKEN_SECRET } = require("../keys");
 const requireLogin = require("../middleware/requireLogin");
+mongoose.set('useFindAndModify', false);
 
 //Post request
 router.post("/signup", (req, res) => {
